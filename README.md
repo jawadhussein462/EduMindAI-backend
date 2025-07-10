@@ -106,7 +106,7 @@ flowchart TD
     L --> A
     G --> H
     H --> E
-    E -->|"Uses"| D
+    E -->|"Context"| D
 ```
 
 ---
