@@ -97,18 +97,17 @@ flowchart TD
     C --> D["ExamQuestionAgent"]
     D --> E["Retrieval Pipeline"]
     E --> F["PDF Parsing"]
-    E --> G["Chunking"]
+    F --> G["Chunking"]
     E --> H["Embedding"]
     D --> I["Exam Analysis Agent"]
     I --> J["Parallel Exercise Generation Agents"]
     J --> K["Formatting Agent"]
     K --> L["Response: Official Exam Template"]
     L --> A
-    F --> G
     G --> H
     H --> E
-    D -->|"Uses"| E
-    D -->|"Uses"| I
+    E -->|"Uses"| D
+    I -->|"Uses"| E
 ```
 
 ---
