@@ -149,9 +149,9 @@ class ExamDataPipeline:
             chunked_fname = parsed_fname.replace(".parsed.txt", ".chunked.txt")
             chunked_path = os.path.join(chunking_dir, chunked_fname)
 
-            # if os.path.exists(chunked_path):
-            #     logger.debug(f"✓ Already chunked {chunked_path}")
-            #     continue
+            if os.path.exists(chunked_path):
+                logger.debug(f"✓ Already chunked {chunked_path}")
+                continue
 
             logger.info(f"Chunking     → {parsed_fname}")
             self.chunker.chunk_file(parsed_path, chunked_path)
