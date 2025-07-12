@@ -29,3 +29,4 @@ vector_store:
   persist_directory: ".chroma_db"  # Where to store vector DB files
 
 exams_path: "./api/exams"  # Path to exams folder
+force_reload: False

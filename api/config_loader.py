@@ -37,6 +37,7 @@ class AppConfig(BaseModel):
     chunking: ChunkConfig
     exams_path: Optional[str] = None
     vector_store: Optional[dict] = None
+    force_reload: Optional[bool] = False
 
 
 def load_config() -> AppConfig:

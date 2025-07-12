@@ -105,9 +105,10 @@ class ExamDataPipeline:
                 parsed_fname = f"{fname}.parsed.txt"
                 parsed_path = os.path.join(parsing_dir, parsed_fname)
 
-                if os.path.exists(parsed_path):
-                    logger.debug(f"✓ Already parsed  {parsed_path}")
-                    continue
+                if not self.config.force_reload:
+                    if os.path.exists(parsed_path):
+                        logger.debug(f"✓ Already parsed  {parsed_path}")
+                        continue
 
                 # Use to_thread so the blocking I/O does not block the loop.
                 async def _worker(name: str, src: str, dst: str):
@@ -149,9 +150,10 @@ class ExamDataPipeline:
             chunked_fname = parsed_fname.replace(".parsed.txt", ".chunked.txt")
             chunked_path = os.path.join(chunking_dir, chunked_fname)
 
-            if os.path.exists(chunked_path):
-                logger.debug(f"✓ Already chunked {chunked_path}")
-                continue
+            if not self.config.force_reload:
+                if os.path.exists(chunked_path):
+                    logger.debug(f"✓ Already chunked {chunked_path}")
+                    continue
 
             logger.info(f"Chunking     → {parsed_fname}")
             self.chunker.chunk_file(parsed_path, chunked_path)
@@ -171,9 +173,10 @@ class ExamDataPipeline:
             chunked_path = os.path.join(chunking_dir, chunked_fname)
             embedded_marker = f"{chunked_path}.embedded"
 
-            if os.path.exists(embedded_marker):
-                logger.debug(f"✓ Already embedded {chunked_path}")
-                continue
+            if not self.config.force_reload:
+                if os.path.exists(embedded_marker):
+                    logger.debug(f"✓ Already embedded {chunked_path}")
+                    continue
 
             docs = self._collect_docs_from_chunked(chunked_path)
             if not docs:
