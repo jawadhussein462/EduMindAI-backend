@@ -120,6 +120,13 @@ flowchart TD
 ### Linting & Formatting
 You may use tools like `black` and `flake8` for code quality.
 
+### Troubleshooting
+If you encounter the following error: 
+```
+Your system has an unsupported version of sqlite3. Chroma requires sqlite3 >= 3.35.0
+```
+You can solve it by commenting the lines from 85 to 103 in the file `YOUR_PATH/chromadb/__init__.py`.
+
 ## License
 
 This project is licensed under the MIT License.

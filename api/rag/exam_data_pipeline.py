@@ -37,7 +37,7 @@ class ExamDataPipeline:
 
         self.data_loader = DataLoader()
         self.pdf_parser = PDFParser(config)
-        self.chunker = Chunker()
+        self.chunker = Chunker(config)
         self.vector_store = VectorStore(config)
         self._semaphore = asyncio.Semaphore(max_concurrency)
 
@@ -57,7 +57,9 @@ class ExamDataPipeline:
         try:
             return asyncio.run(self._process_exam_files_async())
         except RuntimeError as exc:
-            if "asyncio.run() cannot be called from a running event loop" not in str(exc):
+            if "asyncio.run() cannot be called from a running event loop" not in str(
+                exc
+            ):
                 raise  # different problem → re‑raise
 
             logger.warning(
@@ -78,7 +80,7 @@ class ExamDataPipeline:
         os.makedirs(parsing_dir, exist_ok=True)
         os.makedirs(chunking_dir, exist_ok=True)
 
-       # ── Stage 1 – PARSING (now async) ──────────────────────────────
+        # ── Stage 1 – PARSING (now async) ──────────────────────────────
         await self._parse_all_exam_files_async(parsing_dir)
 
         # ── Stage 2 – CHUNKING (still sync; usually CPU‑light) ─────────
@@ -109,7 +111,7 @@ class ExamDataPipeline:
 
                 # Use to_thread so the blocking I/O does not block the loop.
                 async def _worker(name: str, src: str, dst: str):
-                    async with self._semaphore:  # limit global concurrency
+                    async with self._semaphore:  # limit global concurrency
                         await asyncio.to_thread(self._parse_single_file, name, src, dst)
 
                 tasks.append(asyncio.create_task(_worker(fname, fpath, parsed_path)))
@@ -147,9 +149,9 @@ class ExamDataPipeline:
             chunked_fname = parsed_fname.replace(".parsed.txt", ".chunked.txt")
             chunked_path = os.path.join(chunking_dir, chunked_fname)
 
-            if os.path.exists(chunked_path):
-                logger.debug(f"✓ Already chunked {chunked_path}")
-                continue
+            # if os.path.exists(chunked_path):
+            #     logger.debug(f"✓ Already chunked {chunked_path}")
+            #     continue
 
             logger.info(f"Chunking     → {parsed_fname}")
             self.chunker.chunk_file(parsed_path, chunked_path)
@@ -182,7 +184,7 @@ class ExamDataPipeline:
 
             async def embed_and_mark(docs_snapshot: List[str]):
                 await self.vector_store.add_documents(docs_snapshot)
-            
+
             with open(embedded_marker, "w", encoding="utf-8") as fp:
                 fp.write("embedded")
 
@@ -217,6 +219,7 @@ class ExamDataPipeline:
 # ---------------------------------------------------------------------- #
 # CONVENIENCE WRAPPER FOR SCRIPTS                                        #
 # ---------------------------------------------------------------------- #
+
 
 def run_pipeline(config: AppConfig):
     """Blocking convenience wrapper for CLI usage."""

@@ -15,6 +15,16 @@ api:
 chat:
   history_length: 10  # Number of previous messages to keep in context
 
+chunking:
+  chunk_size: 1000
+  overlap: 200
+  chunk_type: "RecursiveCharacterTextSplitter"
+  supported_chunk_types:
+    - RecursiveCharacterTextSplitter
+    - TokenTextSplitter
+    - CharacterTextSplitter
+    - MarkdownHeaderTextSplitter
+
 vector_store:
   persist_directory: ".chroma_db"  # Where to store vector DB files
 

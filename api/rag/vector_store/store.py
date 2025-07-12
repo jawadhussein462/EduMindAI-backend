@@ -48,7 +48,7 @@ class VectorStore:
         "You are given a chunk of text that belongs to an exam document.\n"
         "Extract the following JSON ONLY (no extra keys, no markdown). "
         "⚠️  The `branch` field MUST be a list whose elements are chosen ONLY from the "
-        'following English terms exactly as written (case‑insensitive): '
+        "following English terms exactly as written (case‑insensitive): "
         '["general science", "life science", "arts and humanities", '
         '"social and economic sciences" ""middle school certificate"]. If more than one branch applies include all '
         "relevant entries; otherwise use an empty list [].\n"
@@ -72,7 +72,7 @@ class VectorStore:
         self.embeddings = OpenAIEmbeddings(api_key=config.api.openai_api_key)
         self.llm = ChatOpenAI(
             model=config.llm.model,
-            #temperature=config.llm.temperature,
+            # temperature=config.llm.temperature,
             max_tokens=config.llm.max_tokens,
             top_p=config.llm.top_p,
             frequency_penalty=config.llm.frequency_penalty,
@@ -120,13 +120,17 @@ class VectorStore:
             meta = await self._extract_meta(chunk)
             if not meta:
                 # fallback – store without filtering fields
-                meta = ExamMeta(branch=["general science"], subject="UNKNOWN", title="Untitled")
+                meta = ExamMeta(
+                    branch=["general science"], subject="UNKNOWN", title="Untitled"
+                )
 
             docs.append(
                 Document(
                     page_content=meta.to_embedding_text(),
                     metadata={  # type: ignore[arg-type]
-                        "branch": "|".join(meta.branch),  # Store as pipe-separated string
+                        "branch": "|".join(
+                            meta.branch
+                        ),  # Store as pipe-separated string
                         "subject": meta.subject,
                         "full_chunk": chunk,
                     },
@@ -148,14 +152,14 @@ class VectorStore:
         )
         # Chroma filter: match any overlap between stored branches and query branches
         # Now that branch is a pipe-separated string, use $contains for filtering
-        filter_: dict = {"branch": {"$in": meta.branch[0].split("|")}} if meta.branch else {}
+        filter_: dict = (
+            {"branch": {"$in": meta.branch[0].split("|")}} if meta.branch else {}
+        )
         return meta.to_embedding_text(), filter_
 
     async def search(self, query: str, k: int = 5):
         embedding_text, filter_ = await self._prepare_query(query)
         # Chroma will first apply the metadata filter, then similarity search
         return await asyncio.to_thread(
-            self.db.similarity_search,
-            embedding_text, k, filter_
+            self.db.similarity_search, embedding_text, k, filter_
         )
-
