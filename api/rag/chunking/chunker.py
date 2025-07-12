@@ -15,6 +15,9 @@ import re
 from loguru import logger
 from tqdm import tqdm
 
+from langchain_experimental.text_splitter import SemanticChunker
+from langchain_huggingface import HuggingFaceEmbeddings
+
 
 class Chunker:
     def __init__(self, config: AppConfig):
@@ -65,11 +68,20 @@ class Chunker:
                 ],
                 strip_headers=False,
             )
+        elif chunk_type == "SemanticChunker":
+            embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+            return SemanticChunker(
+                embeddings,
+                chunk_size=chunk_size,
+                chunk_overlap=overlap,
+                breakpoint_threshold_type="percentile",
+                breakpoint_threshold_amount=95.0,
+            )
         else:
             raise ValueError(
                 f"Unsupported chunk_type: {chunk_type}. Supported types are: "
                 "RecursiveCharacterTextSplitter, TokenTextSplitter, CharacterTextSplitter, "
-                "SentenceTransformersTokenTextSplitter, NLTKTextSplitter, SpacyTextSplitter"
+                "MarkdownHeaderTextSplitter, SemanticChunker"
             )
 
     @staticmethod

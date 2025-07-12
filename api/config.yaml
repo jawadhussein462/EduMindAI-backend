@@ -23,6 +23,7 @@ chunking:
     - RecursiveCharacterTextSplitter
     - TokenTextSplitter
     - CharacterTextSplitter
+    - SemanticChunker
     - MarkdownHeaderTextSplitter
 
 vector_store:
