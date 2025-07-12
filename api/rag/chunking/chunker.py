@@ -9,9 +9,6 @@ from langchain_text_splitters import (
     RecursiveCharacterTextSplitter,
     TokenTextSplitter,
     CharacterTextSplitter,
-    SentenceTransformersTokenTextSplitter,
-    NLTKTextSplitter,
-    SpacyTextSplitter,
     MarkdownHeaderTextSplitter,
 )
 import re
