@@ -42,6 +42,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Data Pipeline API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#agents-api">Agents API</a></li>
 </ul>
 
         </div>
@@ -82,6 +83,7 @@
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
@@ -95,6 +97,59 @@
 </li>
       <li><a href="api.html#api.data_pipeline.vectorstores.vector_store.VectorStore.ALLOWED_BRANCHES">ALLOWED_BRANCHES (api.data_pipeline.vectorstores.vector_store.VectorStore attribute)</a>
 </li>
+      <li><a href="api.html#api.agents.answer_agent.AnswerAgent">AnswerAgent (class in api.agents.answer_agent)</a>
+</li>
+      <li>
+    api.agents.answer_agent
+
+      <ul>
+        <li><a href="api.html#module-api.agents.answer_agent">module</a>
+</li>
+      </ul></li>
+      <li>
+    api.agents.base_agent
+
+      <ul>
+        <li><a href="api.html#module-api.agents.base_agent">module</a>
+</li>
+      </ul></li>
+      <li>
+    api.agents.clarifier_agent
+
+      <ul>
+        <li><a href="api.html#module-api.agents.clarifier_agent">module</a>
+</li>
+      </ul></li>
+      <li>
+    api.agents.exam_generator
+
+      <ul>
+        <li><a href="api.html#module-api.agents.exam_generator">module</a>
+</li>
+      </ul></li>
+      <li>
+    api.agents.exam_retriever
+
+      <ul>
+        <li><a href="api.html#module-api.agents.exam_retriever">module</a>
+</li>
+      </ul></li>
+      <li>
+    api.agents.question_generator
+
+      <ul>
+        <li><a href="api.html#module-api.agents.question_generator">module</a>
+</li>
+      </ul></li>
+      <li>
+    api.agents.router
+
+      <ul>
+        <li><a href="api.html#module-api.agents.router">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     api.data_pipeline.chunkers.chunker
 
@@ -123,8 +178,6 @@
         <li><a href="api.html#module-api.data_pipeline.parsers.basic_parser">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     api.data_pipeline.parsers.enhanced_parser
 
@@ -166,6 +219,8 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#api.agents.base_agent.BaseAgent">BaseAgent (class in api.agents.base_agent)</a>
+</li>
       <li><a href="api.html#api.data_pipeline.vectorstores.vector_store.ExamMeta.branch">branch (api.data_pipeline.vectorstores.vector_store.ExamMeta attribute)</a>
 
       <ul>
@@ -192,9 +247,13 @@
 </li>
       <li><a href="api.html#api.data_pipeline.chunkers.chunker.Chunker.chunk_file">chunk_file() (api.data_pipeline.chunkers.chunker.Chunker method)</a>
 </li>
+      <li><a href="api.html#api.data_pipeline.chunkers.chunker.Chunker">Chunker (class in api.data_pipeline.chunkers.chunker)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#api.data_pipeline.chunkers.chunker.Chunker">Chunker (class in api.data_pipeline.chunkers.chunker)</a>
+      <li><a href="api.html#api.agents.clarifier_agent.ClarifierAgent">ClarifierAgent (class in api.agents.clarifier_agent)</a>
+</li>
+      <li><a href="api.html#api.agents.router.RouterAgent.classify_intent">classify_intent() (api.agents.router.RouterAgent method)</a>
 </li>
       <li><a href="api.html#api.data_pipeline.parsers.enhanced_parser.ComplexAzurePDFParser">ComplexAzurePDFParser (class in api.data_pipeline.parsers.enhanced_parser)</a>
 </li>
@@ -212,7 +271,13 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#api.agents.exam_generator.ExamGeneratorAgent">ExamGeneratorAgent (class in api.agents.exam_generator)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#api.data_pipeline.vectorstores.vector_store.ExamMeta">ExamMeta (class in api.data_pipeline.vectorstores.vector_store)</a>
+</li>
+      <li><a href="api.html#api.agents.exam_retriever.ExamRetrieverAgent">ExamRetrieverAgent (class in api.agents.exam_retriever)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -256,9 +321,11 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.load_vectorstore">load_vectorstore() (api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore method)</a>
+      <li><a href="api.html#api.agents.exam_retriever.ExamRetrieverAgent.load_vectorstore">load_vectorstore() (api.agents.exam_retriever.ExamRetrieverAgent method)</a>
 
       <ul>
+        <li><a href="api.html#api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.load_vectorstore">(api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore method)</a>
+</li>
         <li><a href="api.html#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.load_vectorstore">(api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore method)</a>
 </li>
       </ul></li>
@@ -276,6 +343,20 @@
     module
 
       <ul>
+        <li><a href="api.html#module-api.agents.answer_agent">api.agents.answer_agent</a>
+</li>
+        <li><a href="api.html#module-api.agents.base_agent">api.agents.base_agent</a>
+</li>
+        <li><a href="api.html#module-api.agents.clarifier_agent">api.agents.clarifier_agent</a>
+</li>
+        <li><a href="api.html#module-api.agents.exam_generator">api.agents.exam_generator</a>
+</li>
+        <li><a href="api.html#module-api.agents.exam_retriever">api.agents.exam_retriever</a>
+</li>
+        <li><a href="api.html#module-api.agents.question_generator">api.agents.question_generator</a>
+</li>
+        <li><a href="api.html#module-api.agents.router">api.agents.router</a>
+</li>
         <li><a href="api.html#module-api.data_pipeline.chunkers.chunker">api.data_pipeline.chunkers.chunker</a>
 </li>
         <li><a href="api.html#module-api.data_pipeline.chunkers.smart_chunker">api.data_pipeline.chunkers.smart_chunker</a>
@@ -312,8 +393,46 @@
   </ul></td>
 </tr></table>
 
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#api.agents.question_generator.QuestionGeneratorAgent">QuestionGeneratorAgent (class in api.agents.question_generator)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#api.agents.answer_agent.AnswerAgent.retrieve_context">retrieve_context() (api.agents.answer_agent.AnswerAgent method)</a>
+
+      <ul>
+        <li><a href="api.html#api.agents.clarifier_agent.ClarifierAgent.retrieve_context">(api.agents.clarifier_agent.ClarifierAgent method)</a>
+</li>
+        <li><a href="api.html#api.agents.exam_generator.ExamGeneratorAgent.retrieve_context">(api.agents.exam_generator.ExamGeneratorAgent method)</a>
+</li>
+        <li><a href="api.html#api.agents.question_generator.QuestionGeneratorAgent.retrieve_context">(api.agents.question_generator.QuestionGeneratorAgent method)</a>
+</li>
+      </ul></li>
+      <li><a href="api.html#api.agents.router.RouterAgent">RouterAgent (class in api.agents.router)</a>
+</li>
+      <li><a href="api.html#api.agents.answer_agent.AnswerAgent.run">run() (api.agents.answer_agent.AnswerAgent method)</a>
+
+      <ul>
+        <li><a href="api.html#api.agents.base_agent.BaseAgent.run">(api.agents.base_agent.BaseAgent method)</a>
+</li>
+        <li><a href="api.html#api.agents.clarifier_agent.ClarifierAgent.run">(api.agents.clarifier_agent.ClarifierAgent method)</a>
+</li>
+        <li><a href="api.html#api.agents.exam_generator.ExamGeneratorAgent.run">(api.agents.exam_generator.ExamGeneratorAgent method)</a>
+</li>
+        <li><a href="api.html#api.agents.exam_retriever.ExamRetrieverAgent.run">(api.agents.exam_retriever.ExamRetrieverAgent method)</a>
+</li>
+        <li><a href="api.html#api.agents.question_generator.QuestionGeneratorAgent.run">(api.agents.question_generator.QuestionGeneratorAgent method)</a>
+</li>
+        <li><a href="api.html#api.agents.router.RouterAgent.run">(api.agents.router.RouterAgent method)</a>
+</li>
+      </ul></li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#api.data_pipeline.pipeline.run_pipeline">run_pipeline() (in module api.data_pipeline.pipeline)</a>
 </li>

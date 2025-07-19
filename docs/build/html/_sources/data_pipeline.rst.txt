@@ -57,6 +57,7 @@ Vector Stores
 
 Main Pipeline Script
 --------------------
+
 .. .. automodule:: api.data_pipeline.exam_data_pipeline
 ..     :members:
 ..     :undoc-members:
@@ -66,52 +67,6 @@ Main Pipeline Script
     :members:
     :undoc-members:
     :show-inheritance:
-
-
-Agents API
-==========
-
-.. toctree::
-   :maxdepth: 2
-
-.. automodule:: api.agents.base_agent
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: api.agents.exam_retriever
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: api.agents.exam_generator
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: api.agents.question_generator
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: api.agents.answer_agent
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: api.agents.clarifier_agent
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. automodule:: api.agents.router
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-
-
 
 .. project_root/
 .. └── datapipeline/
