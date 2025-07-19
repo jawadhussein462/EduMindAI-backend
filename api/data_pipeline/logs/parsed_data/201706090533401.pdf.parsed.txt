@@ -1,0 +1,1 @@
+[Azure Document Intelligence error: <urllib3.connection.HTTPSConnection object at 0x130d4e650>: Failed to resolve 'edumindparsing.cognitiveservices.azure.com' ([Errno 8] nodename nor servname provided, or not known)]

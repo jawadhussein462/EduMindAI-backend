@@ -26,10 +26,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-api/exams/
-api/exams_random/
-api/data_pipeline/logs/parsed_data
-api/data_pipeline/logs/chunked_data
+#api/exams/
+#api/exams_random/
+#api/data_pipeline/logs/parsed_data
+#api/data_pipeline/logs/chunked_data
 
 .vercel
 .DS_Store
