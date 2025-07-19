@@ -1,96 +1,52 @@
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
+from pathlib import Path
 from pydantic import BaseModel
-from typing import Optional, List
+from fastapi import FastAPI
 
-from api.configs.config_loader import load_config, AppConfig
-from api.chatbot import ExamQuestionAgent
+from api.agents.router import RouterAgent
 
 
-# Load configuration
-config: AppConfig = load_config()
-
-# Initialize FastAPI app
-app = FastAPI(title="EduMind AI Chatbot")
-
-# Add CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific origins
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+app = FastAPI(
+    title="EduMindAI", description="Multi-agent RAG system for exams", version="1.0.0"
 )
 
-# Initialize chatbot
-chatbot = ExamQuestionAgent(config)
+# Load your router agent once
+router_agent = RouterAgent(base_vector_dir=Path(".chroma_db/"))
 
 
-class ChatMessage(BaseModel):
-    message: str
+class QueryRequest(BaseModel):
+    query: str | None = None
+    intent: str | None = None
+    subject: str | None = None
+    grade: str | None = None
+    topic: str | None = None
+    question: str | None = None
+    exam_type: str | None = None
+    num_questions: int | None = None
+    question_type: str | None = None
 
 
-class ChatResponse(BaseModel):
-    response: str
-    error: Optional[str] = None
+@app.post("/agent/")
+async def route_agent(request: QueryRequest):
+    query_dict = request.dict(exclude_none=True)
 
+    if not query_dict:
+        return {"error": "No input provided"}
 
-class SearchRequest(BaseModel):
-    query: str
-    subject: Optional[str] = None
-    k: Optional[int] = 5
-
-
-class SearchResult(BaseModel):
-    content: str
-    subject: str
-    filename: str
-    source: str
-
-
-class SearchResponse(BaseModel):
-    results: List[SearchResult]
-    error: Optional[str] = None
-
-
-class ClarificationRequest(BaseModel):
-    message: str
-
-
-class ClarificationResponse(BaseModel):
-    clarification_needed: bool
-    clarification: str
-
-
-@app.get("/")
-async def root():
-    return {"message": "Welcome to the EduMind AI Chatbot API"}
-
-
-@app.get("/api/chat")
-async def chat_get_endpoint(message: str):
     try:
-        response = await chatbot.send_message(message)
-        return {"response": response}
+        result = router_agent.run(query_dict)
+        return {"response": result}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"error": str(e)}
 
 
-@app.post("/api/chat", response_model=ChatResponse)
-async def chat_post_endpoint(chat_message: ChatMessage):
-    try:
-        response = await chatbot.send_message(chat_message.message)
-        return ChatResponse(response=response)
-    except Exception as e:
-        return ChatResponse(response="", error=str(e))
-
-
-@app.post("/api/clarify", response_model=ClarificationResponse)
-async def clarify_endpoint(clarification_request: ClarificationRequest):
-    try:
-        result = await chatbot.ask_for_clarification(clarification_request.message)
-        return ClarificationResponse(**result)
-    except Exception as e:
-        return ClarificationResponse(
-            clarification_needed=False, clarification=f"Error: {str(e)}"
-        )
+#### SIMPLE TEST  ####
+# open http://127.0.0.1:8000/docs
+# curl -X POST http://127.0.0.1:8000/agent/ \
+#  -H "Content-Type: application/json" \
+#  -d '{
+#    "intent": "generate_questions",
+#    "subject": "math",
+#    "grade": "grade_8",
+#    "topic": "fractions",
+#    "num_questions": 3
+#  }'
