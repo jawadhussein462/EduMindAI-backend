@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, List
 
-from api.config_loader import load_config, AppConfig
+from api.configs.config_loader import load_config, AppConfig
 from api.chatbot import ExamQuestionAgent
 
 
@@ -83,7 +83,7 @@ async def chat_post_endpoint(chat_message: ChatMessage):
         return ChatResponse(response=response)
     except Exception as e:
         return ChatResponse(response="", error=str(e))
- 
+
 
 @app.post("/api/clarify", response_model=ClarificationResponse)
 async def clarify_endpoint(clarification_request: ClarificationRequest):
@@ -92,6 +92,5 @@ async def clarify_endpoint(clarification_request: ClarificationRequest):
         return ClarificationResponse(**result)
     except Exception as e:
         return ClarificationResponse(
-            clarification_needed=False,
-            clarification=f"Error: {str(e)}"
+            clarification_needed=False, clarification=f"Error: {str(e)}"
         )

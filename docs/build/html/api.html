@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Pipeline API Reference &mdash; EduMindAI  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to EduMindAI’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            EduMindAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Pipeline API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-api.data_pipeline.parsers.basic_parser">Parsers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api.data_pipeline.parsers.basic_parser.SimpleAzurePDFParser"><code class="docutils literal notranslate"><span class="pre">SimpleAzurePDFParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.parsers.basic_parser.SimpleAzurePDFParser.parse_and_save"><code class="docutils literal notranslate"><span class="pre">SimpleAzurePDFParser.parse_and_save()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#api.data_pipeline.parsers.enhanced_parser.ComplexAzurePDFParser"><code class="docutils literal notranslate"><span class="pre">ComplexAzurePDFParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.parsers.enhanced_parser.ComplexAzurePDFParser.parse_all_pdfs"><code class="docutils literal notranslate"><span class="pre">ComplexAzurePDFParser.parse_all_pdfs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.parsers.enhanced_parser.ComplexAzurePDFParser.save_documents_to_jsonl"><code class="docutils literal notranslate"><span class="pre">ComplexAzurePDFParser.save_documents_to_jsonl()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-api.data_pipeline.loaders.data_loader">Loaders</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api.data_pipeline.loaders.data_loader.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.loaders.data_loader.DataLoader.load"><code class="docutils literal notranslate"><span class="pre">DataLoader.load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.loaders.data_loader.DataLoader.load_and_save"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_and_save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-api.data_pipeline.chunkers.chunker">Chunkers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api.data_pipeline.chunkers.chunker.Chunker"><code class="docutils literal notranslate"><span class="pre">Chunker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.chunkers.chunker.Chunker.chunk"><code class="docutils literal notranslate"><span class="pre">Chunker.chunk()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.chunkers.chunker.Chunker.chunk_file"><code class="docutils literal notranslate"><span class="pre">Chunker.chunk_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-api.data_pipeline.vectorstores.vector_store">Vector Stores</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.ExamMeta"><code class="docutils literal notranslate"><span class="pre">ExamMeta</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.ExamMeta.branch"><code class="docutils literal notranslate"><span class="pre">ExamMeta.branch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.ExamMeta.model_config"><code class="docutils literal notranslate"><span class="pre">ExamMeta.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.ExamMeta.subject"><code class="docutils literal notranslate"><span class="pre">ExamMeta.subject</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.ExamMeta.title"><code class="docutils literal notranslate"><span class="pre">ExamMeta.title</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.ExamMeta.to_embedding_text"><code class="docutils literal notranslate"><span class="pre">ExamMeta.to_embedding_text()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.MetaDict"><code class="docutils literal notranslate"><span class="pre">MetaDict</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.MetaDict.branch"><code class="docutils literal notranslate"><span class="pre">MetaDict.branch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.MetaDict.full_chunk"><code class="docutils literal notranslate"><span class="pre">MetaDict.full_chunk</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.MetaDict.subject"><code class="docutils literal notranslate"><span class="pre">MetaDict.subject</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.VectorStore"><code class="docutils literal notranslate"><span class="pre">VectorStore</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.VectorStore.ALLOWED_BRANCHES"><code class="docutils literal notranslate"><span class="pre">VectorStore.ALLOWED_BRANCHES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.VectorStore.JSON_PROMPT"><code class="docutils literal notranslate"><span class="pre">VectorStore.JSON_PROMPT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.VectorStore.add_documents"><code class="docutils literal notranslate"><span class="pre">VectorStore.add_documents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.VectorStore.search"><code class="docutils literal notranslate"><span class="pre">VectorStore.search()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EduMindAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data Pipeline API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-pipeline-api-reference">
+<h1>Data Pipeline API Reference<a class="headerlink" href="#data-pipeline-api-reference" title="Link to this heading"></a></h1>
+<p>This section documents all modules in the <cite>data_pipeline</cite> package.</p>
+<section id="module-api.data_pipeline.parsers.basic_parser">
+<span id="parsers"></span><h2>Parsers<a class="headerlink" href="#module-api.data_pipeline.parsers.basic_parser" title="Link to this heading"></a></h2>
+<p>PDFParser using OpenAI GPT-4o vision API for robust PDF extraction.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.data_pipeline.parsers.basic_parser.SimpleAzurePDFParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.data_pipeline.parsers.basic_parser.</span></span><span class="sig-name descname"><span class="pre">SimpleAzurePDFParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AppConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.parsers.basic_parser.SimpleAzurePDFParser" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Parser for PDF documents using Azure Form Recognizer.</p>
+<p>This class recursively  extracts text content and saves parsed data to .txt files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.parsers.basic_parser.SimpleAzurePDFParser.parse_and_save">
+<span class="sig-name descname"><span class="pre">parse_and_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.parsers.basic_parser.SimpleAzurePDFParser.parse_and_save" title="Link to this definition"></a></dt>
+<dd><p>Parse PDF and save extracted text to output_path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This function does not return a value;
+it saves the parsed content to the specified output path.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class" id="module-api.data_pipeline.parsers.enhanced_parser">
+<dt class="sig sig-object py" id="api.data_pipeline.parsers.enhanced_parser.ComplexAzurePDFParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.data_pipeline.parsers.enhanced_parser.</span></span><span class="sig-name descname"><span class="pre">ComplexAzurePDFParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AppConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.parsers.enhanced_parser.ComplexAzurePDFParser" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Parser for PDF documents using Azure Form Recognizer.</p>
+<p>This class recursively loads PDFs from a folder, extracts text,
+tables, and math equations, and attaches detailed metadata
+(grade, subject, exam type, etc.) to each chunk.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.parsers.enhanced_parser.ComplexAzurePDFParser.parse_all_pdfs">
+<span class="sig-name descname"><span class="pre">parse_all_pdfs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#api.data_pipeline.parsers.enhanced_parser.ComplexAzurePDFParser.parse_all_pdfs" title="Link to this definition"></a></dt>
+<dd><p>Parse all PDFs in a folder and save results to a JSONL file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Parsed document objects.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[Document]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.parsers.enhanced_parser.ComplexAzurePDFParser.save_documents_to_jsonl">
+<span class="sig-name descname"><span class="pre">save_documents_to_jsonl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">documents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.parsers.enhanced_parser.ComplexAzurePDFParser.save_documents_to_jsonl" title="Link to this definition"></a></dt>
+<dd><p>Save a list of LangChain Document objects to a JSONL file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>documents</strong> (<em>List</em><em>[</em><em>Document</em><em>]</em>) – List of parsed documents to save.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-api.data_pipeline.loaders.data_loader">
+<span id="loaders"></span><h2>Loaders<a class="headerlink" href="#module-api.data_pipeline.loaders.data_loader" title="Link to this heading"></a></h2>
+<p>Module for loading data from various sources (e.g., files, folders).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.data_pipeline.loaders.data_loader.DataLoader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.data_pipeline.loaders.data_loader.</span></span><span class="sig-name descname"><span class="pre">DataLoader</span></span><a class="headerlink" href="#api.data_pipeline.loaders.data_loader.DataLoader" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.loaders.data_loader.DataLoader.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.loaders.data_loader.DataLoader.load" title="Link to this definition"></a></dt>
+<dd><p>Load data from a file or all .txt files in a directory.
+Returns a dict: {filename: content}</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.loaders.data_loader.DataLoader.load_and_save">
+<span class="sig-name descname"><span class="pre">load_and_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.loaders.data_loader.DataLoader.load_and_save" title="Link to this definition"></a></dt>
+<dd><p>Load text from input_path and save to output_path.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-api.data_pipeline.chunkers.chunker">
+<span id="chunkers"></span><h2>Chunkers<a class="headerlink" href="#module-api.data_pipeline.chunkers.chunker" title="Link to this heading"></a></h2>
+<p>Chunker using LangChain’s TextSplitter for advanced chunking.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.data_pipeline.chunkers.chunker.Chunker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.data_pipeline.chunkers.chunker.</span></span><span class="sig-name descname"><span class="pre">Chunker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AppConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.chunkers.chunker.Chunker" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.chunkers.chunker.Chunker.chunk">
+<span class="sig-name descname"><span class="pre">chunk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.chunkers.chunker.Chunker.chunk" title="Link to this definition"></a></dt>
+<dd><p>Split text into chunks.
+Returns a list of text chunks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.chunkers.chunker.Chunker.chunk_file">
+<span class="sig-name descname"><span class="pre">chunk_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.chunkers.chunker.Chunker.chunk_file" title="Link to this definition"></a></dt>
+<dd><p>Read text from input_path, chunk it, and save to output_path.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-api.data_pipeline.vectorstores.vector_store">
+<span id="vector-stores"></span><h2>Vector Stores<a class="headerlink" href="#module-api.data_pipeline.vectorstores.vector_store" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.ExamMeta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.data_pipeline.vectorstores.vector_store.</span></span><span class="sig-name descname"><span class="pre">ExamMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">branch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.ExamMeta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.ExamMeta.branch">
+<span class="sig-name descname"><span class="pre">branch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.ExamMeta.branch" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.ExamMeta.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.ExamMeta.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.ExamMeta.subject">
+<span class="sig-name descname"><span class="pre">subject</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.ExamMeta.subject" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.ExamMeta.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.ExamMeta.title" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.ExamMeta.to_embedding_text">
+<span class="sig-name descname"><span class="pre">to_embedding_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.ExamMeta.to_embedding_text" title="Link to this definition"></a></dt>
+<dd><p>Text that will be embedded.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.MetaDict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.data_pipeline.vectorstores.vector_store.</span></span><span class="sig-name descname"><span class="pre">MetaDict</span></span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.MetaDict" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.MetaDict.branch">
+<span class="sig-name descname"><span class="pre">branch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.MetaDict.branch" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.MetaDict.full_chunk">
+<span class="sig-name descname"><span class="pre">full_chunk</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.MetaDict.full_chunk" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.MetaDict.subject">
+<span class="sig-name descname"><span class="pre">subject</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.MetaDict.subject" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.VectorStore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.data_pipeline.vectorstores.vector_store.</span></span><span class="sig-name descname"><span class="pre">VectorStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AppConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.VectorStore" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.VectorStore.ALLOWED_BRANCHES">
+<span class="sig-name descname"><span class="pre">ALLOWED_BRANCHES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['general</span> <span class="pre">science',</span> <span class="pre">'life</span> <span class="pre">science',</span> <span class="pre">'arts</span> <span class="pre">and</span> <span class="pre">humanities',</span> <span class="pre">'social</span> <span class="pre">and</span> <span class="pre">economic</span> <span class="pre">sciences',</span> <span class="pre">'middle</span> <span class="pre">school</span> <span class="pre">certificate']</span></em><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.VectorStore.ALLOWED_BRANCHES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.VectorStore.JSON_PROMPT">
+<span class="sig-name descname"><span class="pre">JSON_PROMPT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'You</span> <span class="pre">are</span> <span class="pre">given</span> <span class="pre">a</span> <span class="pre">chunk</span> <span class="pre">of</span> <span class="pre">text</span> <span class="pre">that</span> <span class="pre">belongs</span> <span class="pre">to</span> <span class="pre">an</span> <span class="pre">exam</span> <span class="pre">document.\nExtract</span> <span class="pre">the</span> <span class="pre">following</span> <span class="pre">JSON</span> <span class="pre">ONLY</span> <span class="pre">(no</span> <span class="pre">extra</span> <span class="pre">keys,</span> <span class="pre">no</span> <span class="pre">markdown).</span> <span class="pre">⚠️</span>&#160; <span class="pre">The</span> <span class="pre">`branch`</span> <span class="pre">field</span> <span class="pre">MUST</span> <span class="pre">be</span> <span class="pre">a</span> <span class="pre">list</span> <span class="pre">whose</span> <span class="pre">elements</span> <span class="pre">are</span> <span class="pre">chosen</span> <span class="pre">ONLY</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">following</span> <span class="pre">English</span> <span class="pre">terms</span> <span class="pre">exactly</span> <span class="pre">as</span> <span class="pre">written</span> <span class="pre">(case‑insensitive):</span> <span class="pre">[&quot;general</span> <span class="pre">science&quot;,</span> <span class="pre">&quot;life</span> <span class="pre">science&quot;,</span> <span class="pre">&quot;arts</span> <span class="pre">and</span> <span class="pre">humanities&quot;,</span> <span class="pre">&quot;social</span> <span class="pre">and</span> <span class="pre">economic</span> <span class="pre">sciences&quot;</span> <span class="pre">&quot;&quot;middle</span> <span class="pre">school</span> <span class="pre">certificate&quot;].</span> <span class="pre">If</span> <span class="pre">more</span> <span class="pre">than</span> <span class="pre">one</span> <span class="pre">branch</span> <span class="pre">applies</span> <span class="pre">include</span> <span class="pre">all</span> <span class="pre">relevant</span> <span class="pre">entries;</span> <span class="pre">otherwise</span> <span class="pre">use</span> <span class="pre">an</span> <span class="pre">empty</span> <span class="pre">list</span> <span class="pre">[].\n{{\n</span>&#160; <span class="pre">&quot;branch&quot;:</span> <span class="pre">[&quot;&lt;one</span> <span class="pre">or</span> <span class="pre">more</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">allowed</span> <span class="pre">list&gt;&quot;],\n</span>&#160; <span class="pre">&quot;subject&quot;:</span> <span class="pre">&quot;&lt;course</span> <span class="pre">name&gt;&quot;,\n</span>&#160; <span class="pre">&quot;title&quot;:</span>&#160;&#160; <span class="pre">&quot;&lt;a</span> <span class="pre">1‑sentence</span> <span class="pre">descriptive</span> <span class="pre">title</span> <span class="pre">in</span> <span class="pre">English&gt;&quot;\n}}\nChunk:\n{chunk}\nJSON:'</span></em><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.VectorStore.JSON_PROMPT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.VectorStore.add_documents">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_documents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.VectorStore.add_documents" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store.VectorStore.search">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.VectorStore.search" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to EduMindAI’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ali Rida Sahili, Hussein Jawad.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

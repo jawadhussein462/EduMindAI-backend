@@ -3,23 +3,18 @@ import json
 import asyncio  # Ensure this is at the top of your file if not already
 
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import (
-    SystemMessage, HumanMessage, BaseMessage
-)
-from api.system_prompts import (
-    system_prompt
-)
-from api.rag.vector_store import (
-    VectorStore
-)
-from api.config_loader import AppConfig
-from api.rag.exam_data_pipeline import ExamDataPipeline
+from langchain_core.messages import SystemMessage, HumanMessage, BaseMessage
+from api.system_prompts import system_prompt
+from api.data_pipeline.vectorstores.vector_store import VectorStore
+from api.configs.config_loader import AppConfig
+from api.data_pipeline.exam_data_pipeline import ExamDataPipeline
 from loguru import logger
 from pydantic import BaseModel, Field
 
 
 class ExerciseModel(BaseModel):
     """Schema for a single exercise in the exam."""
+
     topic: str
     grade: str
     description: str
@@ -29,13 +24,16 @@ class ExerciseModel(BaseModel):
 
 class ExamModel(BaseModel):
     """Top-level container: a mapping of numbered exercises."""
+
     exercises: Dict[str, ExerciseModel]
-    
+
 
 class ExamQuestionAgent:
     """An intelligent agent for generating exam questions in a single call."""
 
-    def __init__(self, config: AppConfig, data_pipeline: Optional[ExamDataPipeline] = None):
+    def __init__(
+        self, config: AppConfig, data_pipeline: Optional[ExamDataPipeline] = None
+    ):
         # Configuration ----------------------------------------------------
         self.config = config
         self.chat_config = config.chat
@@ -56,15 +54,11 @@ class ExamQuestionAgent:
         self.vector_store = VectorStore(config)
 
         # Message history (system prompt + conversation turns) -------------
-        self.message_history: List[BaseMessage] = [
-            SystemMessage(content=system_prompt)
-        ]
+        self.message_history: List[BaseMessage] = [SystemMessage(content=system_prompt)]
 
         # Exam data pipeline ----------------------------------------------
         self.data_pipeline = data_pipeline or ExamDataPipeline(config)
-        logger.info(
-            "Processing and indexing exam files on agent initialisation ..."
-        )
+        logger.info("Processing and indexing exam files on agent initialisation ...")
         self.data_pipeline.process_exam_files()
 
     # ------------------------------------------------------------------
@@ -78,7 +72,7 @@ class ExamQuestionAgent:
         if len(self.message_history) > max_history + 1:
             self.message_history = [
                 self.message_history[0],
-                *self.message_history[-max_history:]
+                *self.message_history[-max_history:],
             ]
 
     async def _get_relevant_context(self, query: str, k: int = 5) -> str:
@@ -117,9 +111,7 @@ class ExamQuestionAgent:
             "Next question:"
         )
 
-        response = await self.llm.agenerate(
-            [[HumanMessage(content=resume_prompt)]]
-        )
+        response = await self.llm.agenerate([[HumanMessage(content=resume_prompt)]])
         return response.generations[0][0].message.content.strip()
 
     # ------------------------------------------------------------------
@@ -151,13 +143,15 @@ class ExamQuestionAgent:
         logger.info("[ExamAgent] Exam generation complete.")
         return exam_doc
 
-    async def _filter_to_only_related_questions(self, exercise: ExerciseModel, context: str) -> str:
+    async def _filter_to_only_related_questions(
+        self, exercise: ExerciseModel, context: str
+    ) -> str:
         """Generate a formatted exam exercise (text, not JSON) using the LLM."""
         # Use model_dump() to get a dict, then remove 'subquestions'
         exercise_dict = exercise.model_dump()
-        exercise_dict.pop('description', None)
-        exercise_dict.pop('general_question', None)
-        exercise_dict.pop('subquestions', None)
+        exercise_dict.pop("description", None)
+        exercise_dict.pop("general_question", None)
+        exercise_dict.pop("subquestions", None)
         exercise_json = json.dumps(exercise_dict)
 
         prompt = (
@@ -167,7 +161,7 @@ class ExamQuestionAgent:
             "1. Analyze the provided context of previous exams and exercises.\n"
             "2. Identify which exercises closely match the topic or subject of the given exercise.\n"
             "3. Return set of exercises that are relevant to the topic and to the grade of the given exercise.\n"
-            "\n"    
+            "\n"
             "---\nEXERCISE TOPIC:\n"
             f"{exercise_json}\n"
             "---\n"
@@ -183,15 +177,15 @@ class ExamQuestionAgent:
         content = response.generations[0][0].message.content.strip()
         logger.info(f"[ExamAgent] Filtered exercise content: {content}")
         return content
-        
+
     async def _fill_exam_exercise(self, exercise: ExerciseModel, context: str) -> str:
         """Generate a formatted exam exercise (text, not JSON) using the LLM."""
         # Use model_dump() to get a dict, then remove 'subquestions'
         exercise_dict = exercise.model_dump()
-        exercise_dict.pop('general_question', None)
-        exercise_dict.pop('subquestions', None)
+        exercise_dict.pop("general_question", None)
+        exercise_dict.pop("subquestions", None)
         exercise_json = json.dumps(exercise_dict)
-        
+
         context = await self._filter_to_only_related_questions(exercise, context)
 
         prompt = (
@@ -215,16 +209,13 @@ class ExamQuestionAgent:
         return content
 
     async def _compile_exam_document(
-            self,
-            context: str,
-            user_request: str,
-            questions: Dict[str, str]
+        self, context: str, user_request: str, questions: Dict[str, str]
     ) -> str:
         """Format the generated questions into a structured exam document string."""
         doc_lines = []
         for idx, (key, qtext) in enumerate(questions.items(), 1):
             doc_lines.append(f"Exercise {idx}\n{qtext}\n")
-        
+
         exam = "\n".join(doc_lines)
         prompt = (
             "You are an expert exam designer. Your task is to reformat the exam "
@@ -258,13 +249,13 @@ class ExamQuestionAgent:
             "\n"
             "Return a single JSON object with this exact schema (no extra fields):\n"
             "{\n"
-            "  \"exercises\": {\n"
-            "    \"1\": {\n"
-            "      \"topic\": str,\n"
-            "      \"grade\": str,\n"
-            "      \"description\": str,\n"
-            "      \"general_question\": str,\n"
-            "      \"subquestions\": list[str]\n"
+            '  "exercises": {\n'
+            '    "1": {\n'
+            '      "topic": str,\n'
+            '      "grade": str,\n'
+            '      "description": str,\n'
+            '      "general_question": str,\n'
+            '      "subquestions": list[str]\n'
             "    },\n"
             "    ...\n"
             "  }\n"
@@ -284,15 +275,15 @@ class ExamQuestionAgent:
         logger.info(f"[ExamAgent] Received exam exercises content: {content}")
 
         # Remove markdown code fences if present
-        if content.startswith('```'):
+        if content.startswith("```"):
             # Remove the first line (``` or ```json)
-            lines = content.split('\n')
-            if lines[0].startswith('```'):
+            lines = content.split("\n")
+            if lines[0].startswith("```"):
                 lines = lines[1:]
             # Remove the last line if it is a closing code fence
-            if lines and lines[-1].strip().startswith('```'):
+            if lines and lines[-1].strip().startswith("```"):
                 lines = lines[:-1]
-            content = '\n'.join(lines).strip()
+            content = "\n".join(lines).strip()
 
         # Parse the JSON string to a Python dict
         try:
@@ -358,9 +349,11 @@ class ExamQuestionAgent:
             "Your reply:"
         )
 
-        response = await self.llm.agenerate([[HumanMessage(content=clarification_prompt)]])
+        response = await self.llm.agenerate(
+            [[HumanMessage(content=clarification_prompt)]]
+        )
         content = response.generations[0][0].message.content.strip()
-        if content.strip().upper() == 'CLEAR':
+        if content.strip().upper() == "CLEAR":
             return {"clarification_needed": False, "clarification": ""}
         else:
             return {"clarification_needed": True, "clarification": content}

@@ -1,4 +1,0 @@
-[Azure Document Intelligence error: (Timeout) The operation was timeout.
-Code: Timeout
-Message: The operation was timeout.]
----
