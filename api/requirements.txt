@@ -9,3 +9,8 @@ loguru
 azure-ai-formrecognizer>=3.3.3
 uvicorn
 chromadb
+
+# For documentation
+# sphinx==7.3.7
+# sphinx_rtd_theme
+# sphinx-autoapi
