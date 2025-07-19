@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Pipeline API Reference &mdash; EduMindAI  documentation</title>
@@ -14,7 +14,7 @@
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -70,6 +70,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.chunkers.chunker.Chunker.chunk_file"><code class="docutils literal notranslate"><span class="pre">Chunker.chunk_file()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#api.data_pipeline.chunkers.smart_chunker.SmartChunker"><code class="docutils literal notranslate"><span class="pre">SmartChunker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.chunkers.smart_chunker.SmartChunker.process"><code class="docutils literal notranslate"><span class="pre">SmartChunker.process()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-api.data_pipeline.vectorstores.vector_store">Vector Stores</a><ul>
@@ -94,6 +98,26 @@
 <li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store.VectorStore.search"><code class="docutils literal notranslate"><span class="pre">VectorStore.search()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore"><code class="docutils literal notranslate"><span class="pre">StandardVectorStore</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.build_vectorstore"><code class="docutils literal notranslate"><span class="pre">StandardVectorStore.build_vectorstore()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.load_documents_from_jsonl"><code class="docutils literal notranslate"><span class="pre">StandardVectorStore.load_documents_from_jsonl()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.load_vectorstore"><code class="docutils literal notranslate"><span class="pre">StandardVectorStore.load_vectorstore()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.save_metadata"><code class="docutils literal notranslate"><span class="pre">StandardVectorStore.save_metadata()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore"><code class="docutils literal notranslate"><span class="pre">VersionedVectorStore</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.build_all"><code class="docutils literal notranslate"><span class="pre">VersionedVectorStore.build_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.build_vectorstore"><code class="docutils literal notranslate"><span class="pre">VersionedVectorStore.build_vectorstore()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.group_documents_by_subject_grade"><code class="docutils literal notranslate"><span class="pre">VersionedVectorStore.group_documents_by_subject_grade()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.load_documents_from_jsonl"><code class="docutils literal notranslate"><span class="pre">VersionedVectorStore.load_documents_from_jsonl()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.load_vectorstore"><code class="docutils literal notranslate"><span class="pre">VersionedVectorStore.load_vectorstore()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.save_metadata"><code class="docutils literal notranslate"><span class="pre">VersionedVectorStore.save_metadata()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#main-pipeline-script">Main Pipeline Script</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api.data_pipeline.pipeline.run_pipeline"><code class="docutils literal notranslate"><span class="pre">run_pipeline()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -234,6 +258,36 @@ Returns a list of text chunks.</p>
 
 </dd></dl>
 
+<dl class="py class" id="module-api.data_pipeline.chunkers.smart_chunker">
+<dt class="sig sig-object py" id="api.data_pipeline.chunkers.smart_chunker.SmartChunker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.data_pipeline.chunkers.smart_chunker.</span></span><span class="sig-name descname"><span class="pre">SmartChunker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AppConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.chunkers.smart_chunker.SmartChunker" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Smart chunker for parsed documents. Applies hybrid chunking strategy:
+- Tables and math blocks are kept intact.
+- Text blocks are recursively split for optimal embedding.
+- Nearby tables/math are merged with text chunks when useful.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.chunkers.smart_chunker.SmartChunker.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#api.data_pipeline.chunkers.smart_chunker.SmartChunker.process" title="Link to this definition"></a></dt>
+<dd><p>Full process: load parsed JSONL, chunk documents, and save to output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_path</strong> (<em>Path</em>) – Path to parsed JSONL input.</p></li>
+<li><p><strong>output_path</strong> (<em>Path</em>) – Path to write chunked JSONL output.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Chunked documents.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Document]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-api.data_pipeline.vectorstores.vector_store">
 <span id="vector-stores"></span><h2>Vector Stores<a class="headerlink" href="#module-api.data_pipeline.vectorstores.vector_store" title="Link to this heading"></a></h2>
@@ -315,6 +369,88 @@ Returns a list of text chunks.</p>
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store.VectorStore.search" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="py class" id="module-api.data_pipeline.vectorstores.vector_store_standard">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.data_pipeline.vectorstores.vector_store_standard.</span></span><span class="sig-name descname"><span class="pre">StandardVectorStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AppConfig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OpenAIEmbeddings</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Standard version: Stores all documents in a single Chroma vector DB.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.build_vectorstore">
+<span class="sig-name descname"><span class="pre">build_vectorstore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Chroma</span></span></span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.build_vectorstore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.load_documents_from_jsonl">
+<span class="sig-name descname"><span class="pre">load_documents_from_jsonl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jsonl_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.load_documents_from_jsonl" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.load_vectorstore">
+<span class="sig-name descname"><span class="pre">load_vectorstore</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Chroma</span></span></span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.load_vectorstore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.save_metadata">
+<span class="sig-name descname"><span class="pre">save_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store_standard.StandardVectorStore.save_metadata" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class" id="module-api.data_pipeline.vectorstores.vector_store_versioned">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.data_pipeline.vectorstores.vector_store_versioned.</span></span><span class="sig-name descname"><span class="pre">VersionedVectorStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AppConfig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OpenAIEmbeddings</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Versioned vector store: builds one Chroma DB per (subject, grade) group.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.build_all">
+<span class="sig-name descname"><span class="pre">build_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_jsonl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('chroma_store')</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.build_all" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.build_vectorstore">
+<span class="sig-name descname"><span class="pre">build_vectorstore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persist_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Chroma</span></span></span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.build_vectorstore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.group_documents_by_subject_grade">
+<span class="sig-name descname"><span class="pre">group_documents_by_subject_grade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.group_documents_by_subject_grade" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.load_documents_from_jsonl">
+<span class="sig-name descname"><span class="pre">load_documents_from_jsonl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jsonl_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.load_documents_from_jsonl" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.load_vectorstore">
+<span class="sig-name descname"><span class="pre">load_vectorstore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">persist_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Chroma</span></span></span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.load_vectorstore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.save_metadata">
+<span class="sig-name descname"><span class="pre">save_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">persist_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.vectorstores.vector_store_versioned.VersionedVectorStore.save_metadata" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="main-pipeline-script">
+<h2>Main Pipeline Script<a class="headerlink" href="#main-pipeline-script" title="Link to this heading"></a></h2>
+<dl class="py function" id="module-api.data_pipeline.pipeline">
+<dt class="sig sig-object py" id="api.data_pipeline.pipeline.run_pipeline">
+<span class="sig-prename descclassname"><span class="pre">api.data_pipeline.pipeline.</span></span><span class="sig-name descname"><span class="pre">run_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('outputs')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'standard'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.data_pipeline.pipeline.run_pipeline" title="Link to this definition"></a></dt>
+<dd><p>Runs the full pipeline: parsing → chunking → vectorstore.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_folder</strong> (<em>Path</em>) – Folder containing PDF documents.</p></li>
+<li><p><strong>output_dir</strong> (<em>Path</em>) – Output folder for JSONL files and Chroma DB.</p></li>
+<li><p><strong>embedding_mode</strong> (<em>str</em>) – “standard” or “versioned”</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

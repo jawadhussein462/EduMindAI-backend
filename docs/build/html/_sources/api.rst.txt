@@ -32,6 +32,11 @@ Chunkers
     :undoc-members:
     :show-inheritance:
 
+.. automodule:: api.data_pipeline.chunkers.smart_chunker
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Vector Stores
 -------------
 
@@ -40,14 +45,28 @@ Vector Stores
     :undoc-members:
     :show-inheritance:
 
-.. Main Pipeline Script
-.. --------------------
+.. automodule:: api.data_pipeline.vectorstores.vector_store_standard
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: api.data_pipeline.vectorstores.vector_store_versioned
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Main Pipeline Script
+--------------------
 
 .. .. automodule:: api.data_pipeline.exam_data_pipeline
 ..     :members:
 ..     :undoc-members:
 ..     :show-inheritance:
 
+.. automodule:: api.data_pipeline.pipeline
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 .. project_root/
 .. └── datapipeline/
