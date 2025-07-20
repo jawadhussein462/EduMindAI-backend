@@ -8,9 +8,9 @@ llm:
   presence_penalty: 0.0
 
 api:
-  openai_api_key: "INSERT-API-HERE"
-  azure_formrecognizer_key: "INSERT-KEY-HERE"
-  azure_formrecognizer_endpoint: "INSERT-ENDPOINT-HERE"
+  openai_api_key: 
+  azure_formrecognizer_key: 
+  azure_formrecognizer_endpoint: 
 
 chat:
   history_length: 10  # Number of previous messages to keep in context
