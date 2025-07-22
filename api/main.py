@@ -3,9 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, List
 
-from api.config_loader import load_config, AppConfig
-from api.chatbot import ExamQuestionAgent
-
+from config_loader import load_config, AppConfig
+from chatbot.chatbot import ExamQuestionAgent
+from loguru import logger
 
 # Load configuration
 config: AppConfig = load_config()
@@ -32,24 +32,6 @@ class ChatMessage(BaseModel):
 
 class ChatResponse(BaseModel):
     response: str
-    error: Optional[str] = None
-
-
-class SearchRequest(BaseModel):
-    query: str
-    subject: Optional[str] = None
-    k: Optional[int] = 5
-
-
-class SearchResult(BaseModel):
-    content: str
-    subject: str
-    filename: str
-    source: str
-
-
-class SearchResponse(BaseModel):
-    results: List[SearchResult]
     error: Optional[str] = None
 
 
